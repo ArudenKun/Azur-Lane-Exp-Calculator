@@ -5,16 +5,10 @@ namespace Azur_Lane_Exp_Calculator
 {
     public partial class Form1 : Form
     {
-
-        readonly string[] Rarity = { "Normal Ship", "Rainbow Ship" };
-
-        int current;
-        int target;
-        int rarity;
-
+        int current, target, rarity;
         int[] table;
 
-        int[] experience_table_enjp = {0, 100, 300, 600, 1000, 1500, 2100, 2800, 3600,
+        readonly int[] experience_table_enjp = {0, 100, 300, 600, 1000, 1500, 2100, 2800, 3600,
         4500, 5500, 6600, 7800, 9100, 10500, 12000, 13600, 15300, 17100, 19000, 21000,
         23100, 25300, 27600, 30000, 32500, 35100, 37800, 40600, 43500, 46500, 49600,
         52800, 56100, 59500, 63000, 66600, 70300, 74100, 78000, 82000, 86200, 90600,
@@ -28,7 +22,7 @@ namespace Azur_Lane_Exp_Calculator
         1880675, 1985675, 2100675, 2225675, 2360675, 2505675, 2665675, 2840675,
         3030675, 3235675, 3455675, 3696675, 3958675, 4241675, 4545675};
 
-        int[] experience_table_ur = {0, 120, 360, 720, 1200, 1800, 2520, 3360, 4320,
+        readonly int[] experience_table_ur = {0, 120, 360, 720, 1200, 1800, 2520, 3360, 4320,
         5400, 6600, 7920, 9360, 10920, 12600, 14400, 16320, 18360, 20520, 22800, 25200,
         27720, 30360, 33120, 36000, 39000, 42120, 45360, 48720, 52200, 55800, 59520,
         63360, 67320, 71400, 75600, 79920, 84360, 88920, 93600, 98400, 103440, 108720,
@@ -42,7 +36,6 @@ namespace Azur_Lane_Exp_Calculator
         2153000, 2279000, 2417000, 2567000, 2729000, 2903000, 3095000, 3305000,
         3533000, 3779000, 4043000, 4332200, 4646600, 4986200, 5351000 };
 
-
         public Form1()
         {
             InitializeComponent();
@@ -55,43 +48,44 @@ namespace Azur_Lane_Exp_Calculator
                 cmbCurrentLevel.Items.Add("Level " + levels.ToString());
                 cmbTargetLevel.Items.Add("Level " + levels.ToString());
             }
-            cmbRarity.Items.AddRange(Rarity);
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
-            current = cmbCurrentLevel.SelectedIndex + 1;
-            target = cmbTargetLevel.SelectedIndex + 1;
-            rarity = cmbRarity.SelectedIndex;
+            if (cmbCurrentLevel.SelectedIndex > -1 && cmbTargetLevel.SelectedIndex > -1)
+            {
+                current = cmbCurrentLevel.SelectedIndex + 1;
+                target = cmbTargetLevel.SelectedIndex + 1;
 
-            calculate_exp(rarity);
+                if (chkboxUR.Checked)
+                {
+                    rarity = 1;
+                }
+                Calculate_exp(rarity);
+            }
+            else
+            {
+                MessageBox.Show("Please Input All The Fields", "Error");
+            }
         }
 
-        public void calculate_exp(int shipType)
+        public void Calculate_exp(int shipRarity)
         {
-            if (shipType == 0)
+            switch (shipRarity)
             {
-                table = experience_table_enjp;
+                case 1:
+                    table = experience_table_ur;
+                    break;
+                default:
+                    table = experience_table_enjp;
+                    break;
             }
-            else
-            {
-                table = experience_table_ur;
-            }
-            int exp = get_exp_diff(table, current, target);
+            int exp = Get_exp_diff(table, current, target);
 
-            if (exp != null)
-            {
-                lblExpNeeded.Text = exp.ToString();
-            }
-            else
-            {
-                MessageBox.Show("Please Input All The Fields");
-            }
-
-
+            lblExpNeeded.Text = String.Format("{0:n0}", exp);
         }
 
-        public int get_total_exp(int[] table, int level)
+        public static int Get_total_exp(int[] table, int level)
         {
             if (level > 0 && level <= 125)
             {
@@ -103,10 +97,10 @@ namespace Azur_Lane_Exp_Calculator
             }
         }
 
-        public int get_exp_diff(int[] table, int current, int target)
+        public static int Get_exp_diff(int[] table, int current, int target)
         {
-            current = get_total_exp(table, current);
-            target = get_total_exp(table, target);
+            current = Get_total_exp(table, current);
+            target = Get_total_exp(table, target);
 
             return target - current;
         }
