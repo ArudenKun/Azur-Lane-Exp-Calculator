@@ -61,6 +61,10 @@ namespace Azur_Lane_Exp_Calculator
                 {
                     rarity = 1;
                 }
+                else
+                {
+                    rarity = 0;
+                }
                 Calculate_exp(rarity);
             }
             else
