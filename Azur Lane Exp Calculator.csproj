@@ -5,6 +5,23 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>Azur_Lane_Exp_Calculator</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
+    <SignAssembly>false</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <PackageIcon>icon.webp</PackageIcon>
+    <PackageIconUrl />
+    <Description>Azur Lane Exp Calulator</Description>
+    <PackageId>aruden.azurlane.calculator</PackageId>
+    <RepositoryUrl>https://github.com/ArudenKun/Azur-Lane-Exp-Calculator</RepositoryUrl>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>Aruden</Authors>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="icon.webp">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
