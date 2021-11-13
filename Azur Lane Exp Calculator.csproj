@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Azur_Lane_Exp_Calculator</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
     <SignAssembly>false</SignAssembly>
@@ -15,6 +15,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Aruden</Authors>
+    <StartupObject>Azur_Lane_Exp_Calculator.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
